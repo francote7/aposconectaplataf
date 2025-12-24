@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>APOS Conecta - HSDU</title>
+  <title>APOS Conecta | HSDU La Rioja</title>
   
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -18,306 +18,217 @@
     <div id="login-screen" class="login-container">
       <div class="login-card">
         <div class="login-header">
-          <img src="logo-apos.png" alt="Logo APOS" class="login-logo">
-          <h1>APOS Conecta</h1>
+          <img src="logo.png" alt="Logo APOS" class="login-logo-img">
+          <h1>APOS <span class="text-orange">Conecta</span></h1>
           <p class="subtitle">Historia de Salud Digital Unificada</p>
         </div>
         
-        <form id="login-form">
+        <form id="login-form-step1">
           <div class="input-group">
             <label for="username">Usuario</label>
             <div class="input-wrapper">
               <i class="ph ph-user"></i>
-              <input id="username" type="text" placeholder="Ingrese su usuario" required />
+              <input type="text" id="username" name="username" placeholder="Ej: medico" required autocomplete="off">
             </div>
           </div>
-          
           <div class="input-group">
             <label for="password">Contraseña</label>
             <div class="input-wrapper">
-              <i class="ph ph-lock-key"></i>
-              <input id="password" type="password" placeholder="••••••••" required />
+              <i class="ph ph-lock"></i>
+              <input type="password" id="password" name="password" placeholder="••••••••" required>
             </div>
           </div>
-
-          <button class="btn btn-full btn-primary" type="submit">
-            Ingresar a la Plataforma
-          </button>
+          <button type="submit" class="btn-login">Ingresar</button>
+          <p class="login-footer">Acceso exclusivo para prestadores autorizados</p>
         </form>
 
-        <div class="login-footer">
-          <p><strong>Usuarios Demo:</strong> admin, auditor, prestador, operador</p>
-          <p>Contraseña genérica: <em>(usuario)123</em></p>
-        </div>
+        <form id="login-form-step2" class="hidden">
+            <div class="alert-info">
+                <i class="ph ph-shield-check"></i>
+                <p>Hemos enviado un código de 6 dígitos a su dispositivo móvil registrado.</p>
+            </div>
+            <div class="input-group">
+              <label for="otp">Código de Seguridad (Token)</label>
+              <div class="input-wrapper">
+                <i class="ph ph-device-mobile"></i>
+                <input type="text" id="otp" name="otp" placeholder="123456" maxlength="6" style="letter-spacing: 4px; font-weight: bold; text-align: center;">
+              </div>
+            </div>
+            <button type="submit" class="btn-login btn-secure">
+                <i class="ph ph-lock-key-open"></i> Validar Identidad
+            </button>
+            <button type="button" id="back-to-step1" class="btn-link">Volver</button>
+        </form>
+      </div>
+      <div class="login-footer-brand">
+        <p>Gobierno de La Rioja | Fundación Barceló</p>
       </div>
     </div>
 
-    <div id="main-screen" class="dashboard hidden">
+    <div id="main-layout" class="hidden">
       
       <aside class="sidebar">
         <div class="sidebar-header">
-          <img src="logo-apos.png" alt="APOS" class="brand-logo">
-          <span>HSDU</span>
+           <img src="logo.png" alt="Logo APOS" style="height: 30px; width: auto;">
+           <span class="brand-name">APOS Conecta</span>
         </div>
-
-        <nav class="nav-menu">
-          <div class="nav-label">General</div>
-          <button class="nav-item active" data-view="search">
-            <i class="ph ph-users"></i> Buscar Afiliado
-          </button>
-          
-          <div id="patient-modules" class="hidden">
-            <div class="nav-label">Módulos Clínicos</div>
-            <button class="nav-item" data-module="resumen"><i class="ph ph-clipboard-text"></i> Resumen HSI</button>
-            <button class="nav-item" data-module="ambulatorio"><i class="ph ph-stethoscope"></i> Ambulatorio</button>
-            <button class="nav-item" data-module="internacion"><i class="ph ph-bed"></i> Internación</button>
-            <button class="nav-item" data-module="farmacia"><i class="ph ph-pill"></i> Farmacia</button>
-            <button class="nav-item" data-module="laboratorio"><i class="ph ph-flask"></i> Laboratorio</button>
-            <button class="nav-item" data-module="kine"><i class="ph ph-person-simple-run"></i> Kinesiología</button>
-            <button class="nav-item" data-module="odonto"><i class="ph ph-smiley"></i> Odontología</button>
-          </div>
-
-          <div id="admin-modules" class="hidden">
-            <div class="nav-label">Sistema</div>
-            <button class="nav-item" data-module="admin"><i class="ph ph-gear"></i> Administración</button>
-          </div>
+        
+        <nav class="sidebar-nav">
+          <a href="#" class="nav-item active" data-view="home">
+            <i class="ph ph-house"></i>
+            <span>Panel de Control</span>
+          </a>
+          <a href="#" class="nav-item" data-view="search">
+            <i class="ph ph-users-three"></i>
+            <span>Padrón Afiliados</span>
+          </a>
+          <a href="#" class="nav-item" data-view="appointments">
+            <i class="ph ph-calendar-check"></i>
+            <span>Turnos (Agenda)</span>
+          </a>
         </nav>
 
         <div class="sidebar-footer">
           <div class="user-info">
-            <div class="avatar"><i class="ph ph-user"></i></div>
-            <div>
-              <div id="current-user" class="user-name">Usuario</div>
-              <div id="current-role" class="user-role">Rol</div>
+            <div class="avatar" id="user-avatar">DO</div>
+            <div class="user-details">
+              <strong id="user-name-display">Usuario</strong>
+              <small id="user-role-display">Rol</small>
             </div>
           </div>
-          <button id="logout-btn" class="btn-icon"><i class="ph ph-sign-out"></i></button>
+          <button id="logout-btn" class="btn-logout" title="Cerrar Sesión">
+            <i class="ph ph-sign-out"></i>
+          </button>
         </div>
       </aside>
 
-      <main class="main-content">
-        
-        <header id="patient-banner" class="patient-banner hidden">
-          <div class="patient-avatar">
-            <i class="ph ph-user-circle"></i>
-          </div>
-          <div class="patient-details">
-            <h2 id="patient-name">Seleccione Afiliado</h2>
-            <div class="patient-meta">
-              <span id="patient-dni"><i class="ph ph-identification-card"></i> -</span>
-              <span id="patient-age"><i class="ph ph-cake"></i> -</span>
-              <span id="patient-os" class="badge-os">OS: -</span>
+      <main class="content">
+        <header class="topbar">
+          <h2 id="page-title">Panel de Control</h2>
+          <div class="topbar-actions">
+            <div class="status-badge online">
+                <span class="dot"></span> Sistema Operativo
             </div>
-          </div>
-          <div class="patient-actions">
-            <button class="btn btn-outline small">Ver Ficha Completa</button>
+            <button class="icon-btn notification-btn">
+              <i class="ph ph-bell"></i>
+              <span class="badge">3</span>
+            </button>
           </div>
         </header>
 
-        <div class="scrollable-content">
-          
-          <section id="view-search" class="content-section active">
-            <div class="section-header">
-              <h3>Búsqueda de Afiliados</h3>
-              <p>Busque por nombre o DNI para acceder a la HSDU.</p>
-            </div>
-            <div class="search-bar-lg">
-              <i class="ph ph-magnifying-glass"></i>
-              <input id="patient-filter" placeholder="Escriba apellido, nombre o documento..." autofocus />
-            </div>
-            <ul id="patient-list" class="result-list"></ul>
-          </section>
-
-          <div id="module-content" class="hidden">
-
-            <div id="resumen" class="module">
-              <div class="section-header">
-                <h3>Resumen de Historia Clínica</h3>
-              </div>
-              <div class="grid-dashboard">
-                <div class="card info-card">
-                  <h4><i class="ph ph-activity"></i> Última Actividad</h4>
-                  <div id="resumen-last-activity">Sin datos recientes.</div>
-                </div>
-                <div class="card info-card alert-card">
-                  <h4><i class="ph ph-warning-circle"></i> Alertas / Alergias</h4>
-                  <div class="muted">No se registran alergias conocidas.</div>
-                </div>
-                <div class="card info-card full-width">
-                  <h4><i class="ph ph-chart-line-up"></i> Signos Vitales (Último registro)</h4>
-                  <div class="vitals-grid">
-                    <div class="vital-item"><span>PA</span><strong>120/80</strong></div>
-                    <div class="vital-item"><span>FC</span><strong>72</strong></div>
-                    <div class="vital-item"><span>SatO2</span><strong>98%</strong></div>
-                    <div class="vital-item"><span>Temp</span><strong>36.5°C</strong></div>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            <div id="ambulatorio" class="module">
-              <div class="module-split">
-                <div class="feed">
-                  <h3>Historial de Consultas</h3>
-                  <div id="ambulatorio-list" class="activity-feed"></div>
-                </div>
-                <div class="form-panel">
-                  <h3><i class="ph ph-plus-circle"></i> Nueva Evolución Ambulatoria</h3>
-                  <form id="form-ambulatorio" class="hsi-form">
-                    <div class="row">
-                      <label>Profesional <input name="profesional" class="input-modern" required></label>
-                      <label>Matrícula <input name="matricula" class="input-modern" required></label>
-                    </div>
-                    <label>Fecha y Hora <input type="datetime-local" name="fecha" class="input-modern" required></label>
-                    
-                    <label>Motivo de Consulta (Texto libre)</label>
-                    <input name="motivo" class="input-modern" placeholder="Ej: Dolor abdominal..." required>
-                    
-                    <label class="snomed-label">Diagnóstico Principal (SNOMED CT) <span class="badge-snomed">Standard</span></label>
-                    <div class="snomed-search-group">
-                      <input id="snomed-search-amb" class="input-modern" placeholder="Buscar término clínico..." required>
-                      <select id="snomed-results-amb" class="snomed-select"></select>
-                      <button type="button" id="add-snomed-amb" class="btn btn-icon-only"><i class="ph ph-check"></i></button>
+        <div id="views-container">
+            
+            <div id="view-home" class="view-section active">
+                <div class="dashboard-grid">
+                    <div class="card dashboard-card highlight-card">
+                        <div class="card-icon bg-blue">
+                            <i class="ph ph-info"></i>
+                        </div>
+                        <div class="card-content">
+                            <h3>Novedades del Sistema</h3>
+                            <p>Implementación obligatoria de validación MPI a partir del 01/01/2026.</p>
+                            <a href="#" class="text-link">Leer circular ></a>
+                        </div>
                     </div>
 
-                    <label>Evolución / Plan</label>
-                    <textarea name="plan" class="input-modern" rows="4" required></textarea>
+                    <div class="card dashboard-card">
+                        <div class="card-icon bg-orange">
+                            <i class="ph ph-wrench"></i>
+                        </div>
+                        <div class="card-content">
+                            <h3>Mantenimiento</h3>
+                            <p>Ventana de actualización programada: Sábados 02:00 AM - 04:00 AM.</p>
+                        </div>
+                    </div>
 
-                    <button class="btn btn-primary btn-full">Firmar y Guardar (WORM)</button>
-                  </form>
-                </div>
-              </div>
-            </div>
-
-            <div id="internacion" class="module">
-              <div class="grid-dashboard">
-                <div class="card">
-                  <h3>Estado Actual</h3>
-                  <div id="internacion-current"></div>
-                  <hr>
-                  <h4>Ingreso / Admisión</h4>
-                  <form id="form-internacion" class="hsi-form compact-form">
-                    <div class="row">
-                      <label>Tipo <select name="tipo" class="input-modern"><option>Programado</option><option>Urgencia</option></select></label>
-                      <label>Fecha <input type="datetime-local" name="ingreso" class="input-modern" required></label>
+                    <div class="card dashboard-card">
+                        <div class="card-icon bg-green">
+                            <i class="ph ph-pill"></i>
+                        </div>
+                        <div class="card-content">
+                            <h3>Vademécum APOS</h3>
+                            <p>Versión 2025.4 actualizada. Nuevos anticuerpos monoclonales añadidos.</p>
+                            <button class="btn-small">Ver Listado</button>
+                        </div>
                     </div>
-                    <label>Diagnóstico Ingreso (SNOMED)</label>
-                    <div class="snomed-search-group">
-                      <input id="snomed-search-int" class="input-modern" required>
-                      <select id="snomed-results-int" class="snomed-select"></select>
-                      <button type="button" id="add-snomed-int" class="btn btn-icon-only"><i class="ph ph-check"></i></button>
-                    </div>
-                    <div class="row">
-                      <label>Servicio <input name="servicio" class="input-modern" required></label>
-                      <label>Cama <input name="cama" class="input-modern" required></label>
-                    </div>
-                    <button class="btn btn-primary btn-full">Registrar Ingreso</button>
-                  </form>
                 </div>
 
-                <div class="card full-height">
-                  <h3>Evoluciones Clínicas</h3>
-                  <div id="evoluciones-timeline" class="timeline-container"></div>
-                  
-                  <form id="form-evolucion" class="hsi-form top-border">
-                    <label>Nueva Evolución</label>
-                    <textarea name="evo" class="input-modern" placeholder="Describa la evolución del paciente..." required></textarea>
-                    <div class="row">
-                        <input type="datetime-local" name="fecha" class="input-modern" required>
-                        <button class="btn btn-secondary">Agregar</button>
-                    </div>
-                  </form>
-                </div>
-              </div>
-            </div>
-
-            <div id="farmacia" class="module">
-                <h3>Dispensa de Medicamentos</h3>
-                <div class="module-split">
-                    <div id="farmacia-list" class="activity-feed"></div>
-                    <form id="form-farmacia" class="card hsi-form">
-                        <h4>Nueva Dispensa</h4>
-                        <label>Fecha <input type="date" name="fecha" class="input-modern" required></label>
-                        <label>Medicamento (SNOMED / Vademecum) <input name="medicamento" class="input-modern" required></label>
-                        <label>Cantidad <input type="number" name="cantidad" class="input-modern" required></label>
-                        <button class="btn btn-primary btn-full">Registrar Entrega</button>
-                    </form>
+                <div class="section-title mt-4">Accesos Rápidos</div>
+                <div class="quick-actions">
+                    <button class="action-card" onclick="document.querySelector('[data-view=search]').click()">
+                        <i class="ph ph-magnifying-glass-plus"></i>
+                        <span>Nueva Consulta</span>
+                    </button>
+                    <button class="action-card">
+                        <i class="ph ph-prescription"></i>
+                        <span>Receta Digital</span>
+                    </button>
+                    <button class="action-card">
+                        <i class="ph ph-file-text"></i>
+                        <span>Certificados</span>
+                    </button>
                 </div>
             </div>
 
-            <div id="laboratorio" class="module">
-                <h3>Resultados de Laboratorio</h3>
-                <div class="module-split">
-                    <div id="lab-list" class="activity-feed"></div>
-                    <form id="form-lab" class="card hsi-form">
-                        <h4>Cargar Informe (CDA/PDF)</h4>
-                        <label>Fecha <input type="date" name="fecha" class="input-modern" required></label>
-                        <label>Estudio <input name="estudio" class="input-modern" required></label>
-                        <label>Resultado / Valores <textarea name="resultado" class="input-modern" rows="3" required></textarea></label>
-                        <button class="btn btn-primary btn-full">Validar y Cargar</button>
-                    </form>
+            <div id="view-search" class="view-section">
+                <div class="search-hero">
+                    <h3>Búsqueda de Afiliado (MPI)</h3>
+                    <p>Ingrese DNI o número de afiliado para validar identidad con RENAPER.</p>
+                    <div class="search-bar">
+                        <i class="ph ph-magnifying-glass"></i>
+                        <input type="text" id="patient-search-input" placeholder="Buscar por DNI o Apellido (Ej: Mercado, Paez)...">
+                        <button id="btn-search-patient">Buscar</button>
+                    </div>
+                </div>
+
+                <div id="patient-results" class="results-container">
+                    <div class="empty-state">
+                        <i class="ph ph-users"></i>
+                        <p>Realice una búsqueda para ver la historia clínica unificada.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div id="view-patient-detail" class="view-section">
+                <button class="btn-back" onclick="document.querySelector('[data-view=search]').click()">
+                    <i class="ph ph-arrow-left"></i> Volver al Padrón
+                </button>
+
+                <div class="patient-profile-card">
+                    <div class="profile-main">
+                        <div class="profile-avatar">
+                            <i class="ph ph-user"></i>
+                        </div>
+                        <div>
+                            <h2 id="detail-name">Nombre Paciente</h2>
+                            <p id="detail-affiliate" class="text-muted">N° Afiliado</p>
+                            <div class="meta-info">
+                                <span id="detail-age"><i class="ph ph-calendar"></i> Edad</span>
+                                <span class="badge-ok"><i class="ph ph-check-circle"></i> Activo</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="profile-actions">
+                        <button class="action-btn primary"><i class="ph ph-plus"></i> Nueva Evolución</button>
+                        <button class="action-btn secondary"><i class="ph ph-printer"></i> Imprimir</button>
+                    </div>
+                </div>
+
+                <div class="hsdu-container">
+                    <h3 class="section-header">Historia Clínica Cronológica (WORM)</h3>
+                    <div id="medical-timeline" class="timeline">
+                        </div>
                 </div>
             </div>
             
-            <div id="kine" class="module">
-              <h3>Sesiones de Kinesiología</h3>
-              <div class="module-split">
-                  <div id="kine-list" class="activity-feed"></div>
-                  <form id="form-kine" class="card hsi-form">
-                      <h4>Registrar Sesión</h4>
-                      <label>Fecha <input type="date" name="fecha" class="input-modern" required></label>
-                      <label>Técnica / Procedimiento <input name="tecnica" class="input-modern" required></label>
-                      <label>Observaciones <textarea name="obs" class="input-modern"></textarea></label>
-                      <button class="btn btn-primary btn-full">Guardar</button>
-                  </form>
-              </div>
-            </div>
-
-            <div id="odonto" class="module">
-                <h3>Registro Odontológico</h3>
-                <div class="module-split">
-                    <div id="odonto-list" class="activity-feed"></div>
-                    <form id="form-odonto" class="card hsi-form">
-                        <h4>Registrar Práctica</h4>
-                        <label>Fecha <input type="date" name="fecha" class="input-modern" required></label>
-                        <div class="row">
-                             <label>Pieza (FDI) <input name="pieza" class="input-modern" placeholder="Ej: 11" required></label>
-                             <label>Cara <input name="cara" class="input-modern" placeholder="Ej: Vestibular"></label>
-                        </div>
-                        <label>Práctica <input name="practica" class="input-modern" required></label>
-                        <button class="btn btn-primary btn-full">Guardar</button>
-                    </form>
+            <div id="view-appointments" class="view-section">
+                <div class="card">
+                    <h3>Agenda de Turnos</h3>
+                    <p class="text-muted">Funcionalidad en desarrollo para Fase II.</p>
                 </div>
             </div>
 
-            <div id="admin" class="module">
-                <h3>Panel de Administración (RBAC)</h3>
-                <div class="grid-dashboard">
-                    <div class="card">
-                        <h4>Usuarios del Sistema</h4>
-                        <ul id="admin-user-list" class="user-list-admin"></ul>
-                    </div>
-                    <form id="admin-user-form" class="card hsi-form">
-                        <h4>Gestión de Usuario</h4>
-                        <label>Nombre de Usuario <input name="username" class="input-modern" required></label>
-                        <label>Contraseña <input name="password" class="input-modern" required></label>
-                        <label>Rol
-                            <select name="role" class="input-modern" required>
-                                <option value="admin">Administrador</option>
-                                <option value="auditor">Auditor Médico</option>
-                                <option value="prestador">Prestador / Médico</option>
-                            </select>
-                        </label>
-                        <input type="hidden" name="editIndex" value="-1">
-                        <div class="row">
-                            <button class="btn btn-primary">Guardar</button>
-                            <button type="button" id="admin-cancel-edit" class="btn btn-outline">Cancelar</button>
-                        </div>
-                    </form>
-                </div>
-            </div>
-
-          </div> </div>
+        </div>
       </main>
     </div>
   </div>
